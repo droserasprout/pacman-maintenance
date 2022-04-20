@@ -1,0 +1,14 @@
+[Unit]
+Description=Perform package manager maintenance for %i
+
+[Service]
+Type=oneshot
+# Download fresh packages, but, IMPORTANT, do not install them
+ExecStart=/usr/bin/pacman -Syuw --noconfirm
+# Remove orphaned packages
+ExecStart=/usr/bin/sh -c 'pacman -Qttdq | pacman -Rns --noconfirm - | true'
+# Remove cached packages older than three latest versions
+ExecStart=paccache -ur 3
+# Cleanup AUR helpers' cache
+ExecStart=/usr/bin/su %i -c 'yay -Sc --noconfirm --sudo=true || true'
+ExecStart=/usr/bin/su %i -c 'paru -Sc --noconfirm --sudo=true || true'
