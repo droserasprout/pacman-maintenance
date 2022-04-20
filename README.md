@@ -9,8 +9,21 @@ Perform pacman maintenance by timer:
 
 ## Installation
 
+Get from AUR
+
+```bash
+$ <yay/paru/other> -Syu --noconfirm pacman-maintenance
+```
+
+Or build from source
+
 ```bash
 $ git clone https://github.com/droserasprout/pacman-maintenance.git
 $ cd pacman-maintenance; makepkg -si
+```
+
+Enable timer:
+
+```bash
 $ sudo systemctl enable --now pacman-maintenance@$USER.timer
 ```
